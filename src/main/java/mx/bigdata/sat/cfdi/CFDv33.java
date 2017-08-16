@@ -24,6 +24,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.StringReader;
 import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.cert.X509Certificate;
@@ -127,6 +128,11 @@ public final class CFDv33 implements CFDI {
         this.document = load(in);
     }
 
+    public CFDv33(String in, String... contexts) throws Exception {
+    	this.context = getContext(contexts);
+    	this.document = load(in);
+    }
+
     public CFDv33(Comprobante comprobante, String... contexts) throws Exception {
         this.context = getContext(contexts);
         this.document = copy(comprobante);
@@ -205,7 +211,7 @@ public final class CFDv33 implements CFDI {
         }
     }
 
-    //Verifica textualmente el XML con el XSD (Funciona cuando queremos validar un XML que NO fue creado con esta librería
+    //Verifica textualmente el XML con el XSD (Funciona cuando queremos validar un XML que NO fue creado con esta librer a
     public void verificar(InputStream in) throws Exception {
         String certStr = document.getCertificado();
         Base64 b64 = new Base64();
@@ -242,8 +248,8 @@ public final class CFDv33 implements CFDI {
         m.marshal(document, out);
     }
 
-    //Se implementó este método para que agregue los esquemas y los namespace's de manera automática (solo hay que enviar los contexts en el constructor)
-    //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi según sus complementos)
+    //Se implement  este m todo para que agregue los esquemas y los namespace's de manera autom tica (solo hay que enviar los contexts en el constructor)
+    //Se deben agregar todos los complementos en todas sus versiones (tambien a todas las versiones de CFDi seg n sus complementos)
     private String getSchemaLocation() throws Exception {
         List<String> contexts = new ArrayList<>();
         String schema = "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd";
@@ -256,7 +262,7 @@ public final class CFDv33 implements CFDI {
                     schema += " http://www.sat.gob.mx/implocal http://www.sat.gob.mx/sitio_internet/cfd/implocal/implocal.xsd";
                     addNamespace("http://www.sat.gob.mx/implocal", "implocal");
                 } else {
-                    System.out.println("El complemento " + o + " aún no ha sido declarado.");
+                    System.out.println("El complemento " + o + " a n no ha sido declarado.");
                 }
             }
             if (!contexts.isEmpty()) {
@@ -389,6 +395,14 @@ public final class CFDv33 implements CFDI {
         } finally {
             source.close();
         }
+    }
+
+    private static Comprobante load(String xml, String... contexts) throws Exception {
+    	JAXBContext context = getContext(contexts);
+		Unmarshaller u = context.createUnmarshaller();
+		StringBuffer xmlStr = new StringBuffer(xml);
+
+		return (Comprobante) u.unmarshal( new StreamSource( new StringReader( xmlStr.toString() ) ) );
     }
 
     static void dump(String title, byte[] bytes, PrintStream out) {
