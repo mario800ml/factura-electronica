@@ -9,8 +9,8 @@ Librería de componentes Java para el desarrollo de aplicaciones de Factura Elec
 ## Librería de componentes
 
 La librería presenta una interfaz muy simple centrada en el Comprobante Fiscal
-Digital (CFD), las clases principales son `CFDv33` y `CFDv32` que tienen la lógica 
-correspondiente a las versiones 3.3 y 3.2 del CFDi respectivamente.
+Digital (CFD), la clase principal es `CFDv33` que tiene la lógica 
+correspondiente a la versión 3.3 del CFDi.
 
 Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firmar, verificar y serializar CFDs.
 
@@ -18,18 +18,6 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 
 ```java
     CFDv33 cfd = new CFDv33(new FileInputStream(file)); // Crea un CFD a partir de un InputStream
-    Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile),  password);
-    Certificate cert = KeyLoader.loadX509Certificate(new FileInputStream(certFile));
-    Comprobante sellado = cfd.sellarComprobante(key, cert); // Firma el CFD y obtiene un Comprobante sellado
-    cfd.validar(); // Valida el XML, que todos los elementos estén presentes
-    cfd.verificar(); // Verifica un CFD ya firmado
-    cfd.guardar(System.out); // Serializa el CFD a un OutputStream
-```
-
-### Comprobante Fiscal Digital por Internet (CFDv32):
-
-```java
-    CFDv32 cfd = new CFDv32(new FileInputStream(file)); // Crea un CFD a partir de un InputStream
     Key key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile),  password);
     Certificate cert = KeyLoader.loadX509Certificate(new FileInputStream(certFile));
     Comprobante sellado = cfd.sellarComprobante(key, cert); // Firma el CFD y obtiene un Comprobante sellado
@@ -48,17 +36,6 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
     tfd.verificar(cert); // Verifica el TDF
     tfd.guardar(System.out); // Serializa el CFD timbrado a un OutputStream
 ```
-
-### Timbre Fiscal Digital (TFDv1):
-
-```java
-    CFDv32 cfd = new CFDv32(new FileInputStream(file));// Crea un CFD a partir de un InputStream
-    TFDv1 tfd = new TFDv1(cfd); // Crea un TDF a partir del CDF
-    PrivateKey key = KeyLoader.loadPKCS8PrivateKey(new FileInputStream(keyfile), password);
-    tfd.timbrar(key); // Timbra el CDF
-    tfd.verificar(cert); // Verifica el TDF
-    tfd.guardar(System.out); // Serializa el CFD timbrado a un OutputStream
-``
 
 ## Instalación
 
