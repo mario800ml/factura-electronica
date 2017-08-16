@@ -72,9 +72,8 @@ Cada uno de estos elementos tiene la funcionalidad necesaria para: validar, firm
 ```
 
 ### Descarga las dependencias
- 1. Descarga la [última versión](http://search.maven.org/remotecontent?filepath=mx/bigdata/cfdi/cfdi-base/0.2.5/cfdi-base-0.2.5-bin.zip) de las librerías
- 2. Descomprime el archivo cfdi-base-0.2.5-bin.zip
- 3. Agrega todos los archivos jar al classpath de tu aplicación.
+ 1. Descarga la [última versión](https://github.com/mario800ml/factura-electronica/blob/version33/cfdi-base-0.3.0.jar) de las librerías
+ 2. Agrégalo al classpath de tu aplicación.
 
 ## Documentos
 
