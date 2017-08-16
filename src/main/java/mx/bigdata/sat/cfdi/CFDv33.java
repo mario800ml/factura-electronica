@@ -246,6 +246,7 @@ public final class CFDv33 implements CFDI {
         out.write(xmlHeaderBytes);
 
         m.marshal(document, out);
+        System.out.println(out.toString());
     }
 
     //Se implement  este m todo para que agregue los esquemas y los namespace's de manera autom tica (solo hay que enviar los contexts en el constructor)
