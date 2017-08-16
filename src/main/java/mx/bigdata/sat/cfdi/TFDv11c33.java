@@ -25,14 +25,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.util.JAXBSource;
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -44,14 +43,16 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
-import mx.bigdata.sat.cfdi.v33.schema.TimbreFiscalDigital;
-import mx.bigdata.sat.common.ComprobanteBase;
-import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
+
 import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.ErrorHandler;
+
+import mx.bigdata.sat.cfdi.v33.schema.ObjectFactory;
+import mx.bigdata.sat.cfdi.v33.schema.TimbreFiscalDigital;
+import mx.bigdata.sat.common.ComprobanteBase;
+import mx.bigdata.sat.common.NamespacePrefixMapperImpl;
 
 public final class TFDv11c33 {
 
@@ -145,7 +146,7 @@ public final class TFDv11c33 {
 
     public void guardar(OutputStream out) throws Exception {
         Marshaller m = CONTEXT.createMarshaller();
-        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv32.PREFIXES));
+        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv33.PREFIXES));
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd");
         m.marshal(document.getComprobante(), out);
@@ -189,7 +190,7 @@ public final class TFDv11c33 {
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.newDocument();
         Marshaller m = CONTEXT.createMarshaller();
-        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv3.PREFIXES));
+        m.setProperty("com.sun.xml.bind.namespacePrefixMapper", new NamespacePrefixMapperImpl(CFDv33.PREFIXES));
         m.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
         m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.sat.gob.mx/TimbreFiscalDigital TimbreFiscalDigitalv11.xsd");
         m.marshal(tfd, doc);
@@ -203,7 +204,7 @@ public final class TFDv11c33 {
         TimbreFiscalDigital tfds = of.createTimbreFiscalDigital();
         tfds.setVersion("1.1");
         tfds.setUUID(uuid.toString());
-        tfds.setFechaTimbrado(DatatypeFactory.newInstance().newXMLGregorianCalendar(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DATE), c.get(Calendar.HOUR), c.get(Calendar.MINUTE), c.get(Calendar.SECOND), DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
+//        tfds.setFechaTimbrado(new Date());
         tfds.setRfcProvCertif(PAC);
         tfds.setLeyenda(leyenda);
         tfds.setSelloCFD(document.getSello());

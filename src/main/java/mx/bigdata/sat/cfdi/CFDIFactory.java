@@ -42,13 +42,13 @@ public final class CFDIFactory extends CFDFactory {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ByteStreams.copy(in, baos);
         byte[] data = baos.toByteArray();
-        if (getVersion(data).equals("3.2")) {
-            return new CFDv32(new ByteArrayInputStream(data));
-        } else if (getVersion(data).equals("3.3")) {
+//        if (getVersion(data).equals("3.2")) {
+//            return new CFDv32(new ByteArrayInputStream(data));
+//        } else if (getVersion(data).equals("3.3")) {
             return new CFDv33(new ByteArrayInputStream(data));
-        } else {
-            return new CFDv3(new ByteArrayInputStream(data));
-        }
+//        } else {
+//            return new CFDv3(new ByteArrayInputStream(data));
+//        }
     }
 
 }

@@ -1,14 +1,14 @@
 package mx.bigdata.sat.security;
 
-import lombok.Getter;
-import mx.bigdata.sat.exceptions.KeyException;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+
+import lombok.Getter;
+import mx.bigdata.sat.exceptions.KeyException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,9 +17,8 @@ import java.security.cert.X509Certificate;
  */
 public class PublicKeyLoader implements KeyLoader {
 
-    @Getter
+	@Getter
     X509Certificate key;
-
 
     public PublicKeyLoader(String certificateLocation) {
         try {
@@ -45,5 +44,6 @@ public class PublicKeyLoader implements KeyLoader {
             throw new KeyException("Error al obtener el certificado x.509. La codificación puede ser incorrecta.", e.getCause());
         }
     }
+
 
 }

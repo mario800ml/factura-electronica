@@ -16,9 +16,13 @@
 package mx.bigdata.sat.cfdi.examples;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import mx.bigdata.sat.cfdi.v33.schema.CMetodoPago;
 import mx.bigdata.sat.cfdi.v33.schema.CMoneda;
 import mx.bigdata.sat.cfdi.v33.schema.CPais;
@@ -26,6 +30,7 @@ import mx.bigdata.sat.cfdi.v33.schema.CTipoDeComprobante;
 import mx.bigdata.sat.cfdi.v33.schema.CTipoFactor;
 import mx.bigdata.sat.cfdi.v33.schema.CUsoCFDI;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
+import mx.bigdata.sat.cfdi.v33.schema.Comprobante.Addenda;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante.CfdiRelacionados;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante.CfdiRelacionados.CfdiRelacionado;
 import mx.bigdata.sat.cfdi.v33.schema.Comprobante.Conceptos;
@@ -45,12 +50,12 @@ public final class ExampleCFDv33Factory {
         comp.setVersion("3.3");
         comp.setSerie("F");
         comp.setFolio("12345");
-        comp.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(2017, 07, 1, 0, 0, 0, DatatypeConstants.FIELD_UNDEFINED, DatatypeConstants.FIELD_UNDEFINED));
+//        comp.setFecha(new Date());
 //        comp.setSello();
         comp.setFormaPago("02");
         comp.setNoCertificado("20001000000200001428");
 //        comp.setCertificado();
-        comp.setCondicionesDePago("Crédito a 20 días");
+        comp.setCondicionesDePago("CrÃ©dito a 20 dÃ­as");
         comp.setSubTotal(new BigDecimal("1550.00"));
         comp.setDescuento(new BigDecimal("100.00"));
         comp.setMoneda(CMoneda.MXN);
@@ -65,6 +70,7 @@ public final class ExampleCFDv33Factory {
         comp.setReceptor(createReceptor(of));
         comp.setConceptos(createConceptos(of));
         comp.setImpuestos(createImpuestos(of));
+        comp.setAddenda(createAddenda(of));
         return comp;
     }
 
@@ -174,6 +180,30 @@ public final class ExampleCFDv33Factory {
         it.setImporte(new BigDecimal("248.00"));
         its.getTraslado().add(it);
         return its;
+    }
+    
+    private static Addenda createAddenda(ObjectFactory of) {
+        Addenda addenda = of.createComprobanteAddenda();
+        Company c = new Company();
+        c.transaction = new Transaction();
+        c.transaction.purchaseOrder = "4600364283";
+        addenda.getAny().add(c);
+        return addenda;
+    }
+
+    @XmlRootElement(name = "Company")
+    private final static class Company {
+
+        @XmlElement(name = "Transaction")
+        Transaction transaction;
+    }
+
+    @XmlRootElement
+    private final static class Transaction {
+
+        @SuppressWarnings("unused")
+        @XmlAttribute(name = "PurchaseOrder")
+        String purchaseOrder;
     }
 
 }

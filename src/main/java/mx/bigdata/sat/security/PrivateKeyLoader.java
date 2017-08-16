@@ -21,9 +21,8 @@ import java.security.spec.PKCS8EncodedKeySpec;
  */
 public class PrivateKeyLoader implements KeyLoader {
 
-    @Getter
+	@Getter
     PrivateKey key;
-
 
     public PrivateKeyLoader(String privateKeyLocation, String keyPassword) {
         this.setPrivateKey(privateKeyLocation, keyPassword);
@@ -96,4 +95,6 @@ public class PrivateKeyLoader implements KeyLoader {
 
         return bytes;
     }
+
+    
 }

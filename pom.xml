@@ -11,11 +11,11 @@
         <artifactId>oss-parent</artifactId>
         <version>9</version>
     </parent>
-    <issueManagement>
+    <!-- <issueManagement>
         <system>code.google.com</system>
         <url>http://code.google.com/p/factura-electronica/issues</url>
     </issueManagement>
-    <inceptionYear>2010</inceptionYear>
+    <inceptionYear>2010</inceptionYear> -->
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -23,13 +23,13 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    <scm>
+    <!-- <scm>
         <connection>git://github.com/bigdata-mx/factura-electronica.git</connection>
         <developerConnection>scm:git:git@github.com:bigdata-mx/factura-electronica.git</developerConnection>
         <url>scm:git:git@github.com:bigdata-mx/factura-electronica.git</url>
-    </scm>
+    </scm> -->
     <properties>
-        <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
         <dependency>
@@ -64,7 +64,7 @@
             <artifactId>bcprov-ext-jdk15</artifactId>
             <version>1.45</version>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
             <version>2.1.12</version>
@@ -85,7 +85,7 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
-                    <encoding>latin1</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -96,7 +96,7 @@
                     <encoding>${file.encoding}</encoding>
                 </configuration>
                 <executions>
-                    <execution>
+                    <!-- <execution>
                         <id>schema1-xjc</id>
                         <goals>
                             <goal>xjc</goal>
@@ -148,7 +148,7 @@
                             <staleFile>${project.build.directory}/generated-sources/xjc4/.staleFlag</staleFile>
                             <extension>true</extension>
                         </configuration>
-                    </execution>
+                    </execution> -->
                     <execution>
                         <id>schema5-xjc</id>
                         <goals>
@@ -162,7 +162,7 @@
                             <extension>true</extension>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!-- <execution>
                         <id>schema6-xjc</id>
                         <goals>
                             <goal>xjc</goal>
@@ -174,7 +174,7 @@
                             <staleFile>${project.build.directory}/generated-sources/xjc6/.staleFlag</staleFile>
                             <extension>true</extension>
                         </configuration>
-                    </execution>
+                    </execution> -->
                     <execution>
                         <id>schema6-11-xjc</id>
                         <goals>
@@ -722,7 +722,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.4</version>
@@ -738,7 +738,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>

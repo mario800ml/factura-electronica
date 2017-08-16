@@ -18,15 +18,16 @@ package mx.bigdata.sat.cfdi.examples;
 import java.io.FileInputStream;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import mx.bigdata.sat.cfdi.CFDv3;
-import mx.bigdata.sat.cfdi.schema.Comprobante;
+
+import mx.bigdata.sat.cfdi.CFDv33;
+import mx.bigdata.sat.cfdi.v33.schema.Comprobante;
 import mx.bigdata.sat.security.KeyLoaderEnumeration;
 import mx.bigdata.sat.security.factory.KeyLoaderFactory;
 
 public final class Main {
 
     public static void main(String[] args) throws Exception {
-        CFDv3 cfd = new CFDv3(ExampleCFDFactory.createComprobante(), "mx.bigdata.sat.cfdi.examples");
+        CFDv33 cfd = new CFDv33(ExampleCFDv33Factory.createComprobante(), "mx.bigdata.sat.cfdi.examples");
         cfd.addNamespace("http://www.bigdata.mx/cfdi/example", "example");
 
         PrivateKey key = KeyLoaderFactory.createInstance(
